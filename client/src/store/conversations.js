@@ -26,9 +26,6 @@ export const gotConversations = (conversations) => {
 };
 
 export const setNewMessage = (message, sender) => {
-  console.log("!!!!! message", message);
-  console.log("@@@@@ sender", sender);
-
   return {
     type: SET_MESSAGE,
     payload: { message, sender: sender || null },
@@ -73,8 +70,6 @@ export const addConversation = (recipientId, newMessage) => {
 // REDUCER
 
 const reducer = (state = [], action) => {
-  console.log("$$$$ conversations.js action", action)
-
   switch (action.type) {
     case GET_CONVERSATIONS:
       return action.conversations;
