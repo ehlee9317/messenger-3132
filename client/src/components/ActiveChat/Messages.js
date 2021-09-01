@@ -40,7 +40,7 @@ const Messages = (props) => {
           />
         );
       })}
-      <div ref={scrollRef} />
+      <Box ref={scrollRef} />
     </Box>
   );
 };
