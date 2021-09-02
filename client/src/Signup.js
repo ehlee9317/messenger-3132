@@ -1,21 +1,51 @@
 import React, { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  FormControl,
-  TextField,
-  FormHelperText,
-} from "@material-ui/core";
+import { Grid, Typography, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { register } from "./store/utils/thunkCreators";
+import { theme } from "./themes/theme";
+import AuthSideLayout from "./components/AuthPage/AuthSideLayout";
+import AuthInput from "./components/AuthPage/AuthInput";
+import AuthHeader from "./components/AuthPage/AuthHeader";
 
-const Login = (props) => {
-  const history = useHistory();
+const useStyles = makeStyles(() => ({
+  formContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+
+  form: {
+    flex: "0 500px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+  },
+
+  greeting: {
+    fontSize: "26pt",
+    fontWeight: 600,
+    lineHeight: "40px",
+    marginBottom: "40px",
+  },
+
+  button: {
+    alignSelf: "center",
+    fontSize: "14pt",
+    fontWeight: "bold",
+    lineHeight: "20px",
+    padding: "20px 65px",
+    backgroundColor: theme.palette.primary.main,
+    color: "white",
+    marginTop: "30px",
+  },
+}));
+
+const Signup = (props) => {
   const { user, register } = props;
   const [formErrorMessage, setFormErrorMessage] = useState({});
+  const classes = useStyles();
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -37,73 +67,36 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justify="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to log in?</Typography>
-          <Button onClick={() => history.push("/login")}>Login</Button>
-        </Grid>
-        <form onSubmit={handleRegister}>
-          <Grid>
-            <Grid>
-              <FormControl>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                  required
-                />
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl>
-                <TextField
-                  label="E-mail address"
-                  aria-label="e-mail address"
-                  type="email"
-                  name="email"
-                  required
-                />
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  aria-label="password"
-                  label="Password"
-                  type="password"
-                  inputProps={{ minLength: 6 }}
-                  name="password"
-                  required
-                />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  label="Confirm Password"
-                  aria-label="confirm password"
-                  type="password"
-                  inputProps={{ minLength: 6 }}
-                  name="confirmPassword"
-                  required
-                />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Button type="submit" variant="contained" size="large">
-              Create
-            </Button>
-          </Grid>
+    <AuthSideLayout>
+      <AuthHeader text="Already have an account?" button="Login" link="login" />
+      <Grid className={classes.formContainer}>
+        <form className={classes.form} onSubmit={handleRegister}>
+          <Typography className={classes.greeting}>
+            Create an account.
+          </Typography>
+          <AuthInput label="Username" name="username" type="text" />
+          <AuthInput label="E-mail address" name="email" type="email" />
+
+          <AuthInput
+            label="Password"
+            name="password"
+            type="password"
+            inputProps={{ minLength: 6 }}
+          />
+
+          <AuthInput
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            inputProps={{ minLength: 6 }}
+          />
+
+          <Button className={classes.button} type="submit" size="large">
+            Create
+          </Button>
         </form>
-      </Box>
-    </Grid>
+      </Grid>
+    </AuthSideLayout>
   );
 };
 
@@ -121,4 +114,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
