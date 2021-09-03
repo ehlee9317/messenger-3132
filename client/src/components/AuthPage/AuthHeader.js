@@ -13,6 +13,13 @@ const useStyles = makeStyles(() => ({
     gap: 45,
     marginTop: "10px",
     marginLeft: "-10px",
+
+    [theme.breakpoints.down("xs")]: {
+      display: 'flex',
+      flexDirection: "column",
+      marginTop: "30px",
+      gap: 25,
+    },
   },
 
   headerText: {

@@ -17,8 +17,6 @@ const useStyles = makeStyles(() => ({
     "&::before": {
       content: '""',
       position: "absolute",
-      // top: 0,
-      // left: 0,
       width: "100%",
       height: "100%",
       opacity: 0.8,
@@ -27,7 +25,7 @@ const useStyles = makeStyles(() => ({
     "& *": {
       zIndex: 1,
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("xs")]: {
       display: "none",
     },
   },
@@ -51,9 +49,13 @@ const useStyles = makeStyles(() => ({
     justifyContent: "flex-start",
     padding: "30px 42px",
     gap: 86,
+
+    [theme.breakpoints.down("xs")]: {
+      padding: "0 0",
+      marginLeft: "100px"
+    },
   },
 }));
-
 
 const AuthSideLayout = ({ children }) => {
   const classes = useStyles();
@@ -62,10 +64,10 @@ const AuthSideLayout = ({ children }) => {
     <Grid container spacing={0}>
       <Grid
         className={classes.sideBanner}
+        direction="column"
         container
         item
-        xs={true}
-        direction="column"
+        xs={5}
       >
         <img className={classes.icon} src={bubbleVector} alt="" />
         <Box className={classes.bannerText}>

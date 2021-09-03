@@ -21,6 +21,11 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
+    [theme.breakpoints.down("xs")]: {
+      display: 'flex',
+      flexDirection: "column",
+      marginTop: "-30px",
+    },
   },
 
   greeting: {

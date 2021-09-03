@@ -22,6 +22,16 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "stretch",
     marginTop: "100px",
+    [theme.breakpoints.down("xs")]: {
+      display: 'flex',
+      flexDirection: "column",
+      marginTop: "50px",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: 'flex',
+      flexDirection: "column",
+      marginTop: "30px",
+    },
   },
 
   greeting: {
