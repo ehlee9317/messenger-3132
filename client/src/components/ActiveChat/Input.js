@@ -7,20 +7,20 @@ import { postMessage } from "../../store/utils/thunkCreators";
 const useStyles = makeStyles(() => ({
   root: {
     justifySelf: "flex-end",
-    marginTop: 15
+    marginTop: 15,
   },
   input: {
     height: 70,
     backgroundColor: "#F4F6FA",
     borderRadius: 8,
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 }));
 
 const Input = (props) => {
   const classes = useStyles();
   const [text, setText] = useState("");
-  const { postMessage, otherUser, conversationId, user } = props;
+  const { postMessage, otherUser, conversationId, user, conversation } = props;
 
   const handleChange = (event) => {
     setText(event.target.value);
@@ -28,12 +28,21 @@ const Input = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // when both users are on the active chat, inputted chat message will be read
+    let read;
+
+    if (conversation.user1 && conversation.user2) {
+      read = true;
+    }
+
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
       text: event.target.text.value,
       recipientId: otherUser.id,
       conversationId,
-      sender: conversationId ? null : user
+      sender: conversationId ? null : user,
+      read: read,
     };
     await postMessage(reqBody);
     setText("");
@@ -55,6 +64,15 @@ const Input = (props) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    conversation: state.conversations.find(
+      (conversation) =>
+        conversation.otherUser.username === state.activeConversation
+    ),
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     postMessage: (message) => {
@@ -63,4 +81,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Input);
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
