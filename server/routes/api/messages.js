@@ -58,15 +58,21 @@ router.put("/", async (req, res, next) => {
       return res.sendStatus(401);
     }
 
+    const senderId = req.user.id;
     const { convId, otherUserId } = req.body;
 
     if (convId) {
-      await Message.update(
-        { read: true },
-        { where: { conversationId: convId, senderId: otherUserId } }
-      );
+      const conv = await Conversation.findByPk(convId);
+
+      if (conv.user1Id === senderId || conv.user2Id === senderId) {
+        await Message.update(
+          { read: true },
+          { where: { conversationId: convId, senderId: otherUserId } }
+        );
+      }
       return res.sendStatus(204);
     } else return res.sendStatus(400);
+
   } catch (err) {
     next(err);
   }

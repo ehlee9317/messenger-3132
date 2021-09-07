@@ -57,7 +57,7 @@ export const addUnreadMessagesToStore = (state, payload) => {
   return state.map((convo) => {
     if (convo.id === convId) {
       const convoCopy = { ...convo };
-      convoCopy.unreadMessages = "";
+      convoCopy.unreadMessages = 0;
       return convoCopy;
     }
     return convo;
