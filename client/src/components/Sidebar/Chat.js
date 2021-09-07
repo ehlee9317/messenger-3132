@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Chat = (props) => {
   const classes = useStyles();
-  const { conversation, editReadStatus } = props;
+  const { conversation, updateReadStatus } = props;
   const { otherUser } = conversation;
 
   const handleClick = async (conversation) => {
     if (conversation?.id) {
-      await editReadStatus(conversation);
+      await updateReadStatus(conversation);
     }
 
     await props.setActiveChat(conversation.otherUser.username);
@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setActiveChat(id));
     },
 
-    editReadStatus: (conversation) => {
+    updateReadStatus: (conversation) => {
       dispatch(updateReadStatus(conversation));
     },
   };
