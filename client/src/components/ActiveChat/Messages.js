@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, Avatar } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
@@ -28,9 +28,7 @@ const useStyles = makeStyles(() => ({
 
 const Messages = (props) => {
   const classes = useStyles();
-  const { messages, otherUser, userId } = props;
-  const [lastRead, setLastRead] = useState();
-
+  const { messages, otherUser, userId, lastRead } = props;
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -39,26 +37,13 @@ const Messages = (props) => {
     }
   });
 
-  useEffect(() => {
-    let index;
-
-    for (let i = 0; i < messages.length; i++) {
-      if (messages[i].senderId === userId) {
-        if (messages[i].read) {
-          index = messages[i].id;
-        }
-      }
-    }
-    setLastRead(index);
-  }, [messages, userId]);
-
   return (
     <Box className={classes.chatBox}>
       {messages.map((message) => {
         const time = moment(message.createdAt).format("h:mm");
 
         return message.senderId === userId ? (
-          <div key={message.id} className={classes.bubbleBox}>
+          <Box key={message.id} className={classes.bubbleBox}>
             <SenderBubble text={message.text} time={time} />
             {message.id === lastRead && (
               <Avatar
@@ -67,7 +52,7 @@ const Messages = (props) => {
                 className={classes.avatar}
               ></Avatar>
             )}
-          </div>
+          </Box>
         ) : (
           <OtherUserBubble
             key={message.id}

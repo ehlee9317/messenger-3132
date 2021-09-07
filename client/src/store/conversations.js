@@ -99,7 +99,6 @@ const reducer = (state = [], action) => {
       return addMessageStatusToStore(state, action.payload);
     case SET_UNREAD_MESSAGES:
       return addUnreadMessagesToStore(state, action.payload);
-
     case ADD_ONLINE_USER: {
       return addOnlineUserToStore(state, action.id);
     }

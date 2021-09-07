@@ -5,7 +5,7 @@ import {
   addConversation,
   setNewMessage,
   setSearchedUsers,
-  setUnreadMessages
+  setUnreadMessages,
 } from "../conversations";
 import { gotUser, setFetchingStatus } from "../user";
 
@@ -76,7 +76,12 @@ export const fetchConversations = () => async (dispatch) => {
 
     data.forEach((conversation) => {
       conversation.messages.reverse();
-    })
+      if(conversation.otherUser && (conversation.user1 || conversation.user2)) {
+        conversation.messages.forEach((message) => {
+          message.read = true;
+        })
+      }
+    });
 
     dispatch(gotConversations(data));
   } catch (error) {
@@ -128,11 +133,11 @@ export const updateReadStatus = (conv) => async (dispatch) => {
   try {
     await axios.put("/api/messages", {
       convId: conv.id,
-      otherUserId: conv.otherUser.id
+      otherUserId: conv.otherUser.id,
     });
 
     dispatch(setUnreadMessages(conv.id));
   } catch (err) {
     console.error(err);
   }
-}
+};

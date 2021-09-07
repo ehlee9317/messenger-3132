@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 const Input = (props) => {
   const classes = useStyles();
   const [text, setText] = useState("");
-  const { postMessage, otherUser, conversationId, user, conversation } = props;
+  const { postMessage, otherUser, conversationId, user } = props;
 
   const handleChange = (event) => {
     setText(event.target.value);
@@ -29,20 +29,12 @@ const Input = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // when both users are on the active chat, inputted chat message will be read
-    let read;
-
-    if (conversation.user1 && conversation.user2) {
-      read = true;
-    }
-
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
       text: event.target.text.value,
       recipientId: otherUser.id,
       conversationId,
       sender: conversationId ? null : user,
-      read: read,
     };
     await postMessage(reqBody);
     setText("");
