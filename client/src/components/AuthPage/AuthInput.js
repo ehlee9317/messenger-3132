@@ -14,6 +14,15 @@ const useStyles = makeStyles(() => ({
       marginTop: 40,
     },
     marginBottom: "22px",
+    [theme.breakpoints.down("xs")]: {
+      "& .MuiInputLabel-root": {
+        color: theme.palette.secondary.main,
+        fontSize: "12pt",
+      },
+      "& label + .MuiInput-formControl": {
+        marginTop: 20,
+      },
+    },
   },
 }));
 

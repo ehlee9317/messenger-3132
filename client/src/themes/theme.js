@@ -7,18 +7,18 @@ export const theme = createMuiTheme({
     button: {
       textTransform: "none",
       letterSpacing: 0,
-      fontWeight: "bold"
-    }
+      fontWeight: "bold",
+    },
   },
   overrides: {
     MuiInput: {
       input: {
-        fontWeight: "bold"
-      }
-    }
+        fontWeight: "bold",
+      },
+    },
   },
   palette: {
-    primary: { main: "#3A8DFF" },
-    secondary: { main: "#7b7b7b" }
-  }
+    primary: { main: "#3A8DFF", contrastText: "white" },
+    secondary: { main: "#7b7b7b" },
+  },
 });

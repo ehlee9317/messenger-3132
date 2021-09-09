@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
       flexDirection: "column",
       marginTop: "30px",
       gap: 25,
+      marginLeft: "-10%"
     },
   },
 
@@ -31,7 +32,11 @@ const useStyles = makeStyles(() => ({
     fontSize: "14pt",
     padding: "15px 50px",
     color: theme.palette.primary.main,
-    backgroundColor: "white",
+    backgroundColor: theme.palette.primary.contrastText,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "12pt",
+      padding: "10px 30px",
+    },
   },
 }));
 

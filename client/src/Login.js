@@ -14,6 +14,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    [theme.breakpoints.down("xs")]: {
+      alignItems: "center",
+      marginLeft: "-20%",
+    },
   },
 
   form: {
@@ -23,14 +27,13 @@ const useStyles = makeStyles(() => ({
     alignItems: "stretch",
     marginTop: "100px",
     [theme.breakpoints.down("xs")]: {
-      display: 'flex',
+      display: "flex",
       flexDirection: "column",
-      marginTop: "50px",
+      marginTop: "10px",
     },
     [theme.breakpoints.down("md")]: {
-      display: 'flex',
+      display: "flex",
       flexDirection: "column",
-      marginTop: "30px",
     },
   },
 
@@ -39,6 +42,10 @@ const useStyles = makeStyles(() => ({
     fontWeight: 600,
     lineHeight: "40px",
     marginBottom: "40px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "22pt",
+      marginBottom: "20px",
+    },
   },
 
   button: {
@@ -48,8 +55,13 @@ const useStyles = makeStyles(() => ({
     lineHeight: "20px",
     padding: "20px 65px",
     backgroundColor: theme.palette.primary.main,
-    color: "white",
+    color: theme.palette.primary.contrastText,
     marginTop: "30px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "12pt",
+      padding: "15px 45px",
+      marginTop: "20px",
+    },
   },
 }));
 
