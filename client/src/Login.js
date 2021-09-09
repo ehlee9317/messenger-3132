@@ -8,6 +8,7 @@ import { theme } from "./themes/theme";
 import AuthSideLayout from "./components/AuthPage/AuthSideLayout";
 import AuthInput from "./components/AuthPage/AuthInput";
 import AuthHeader from "./components/AuthPage/AuthHeader";
+import AuthButton from "./components/AuthPage/AuthButton";
 
 const useStyles = makeStyles(() => ({
   formContainer: {
@@ -31,10 +32,6 @@ const useStyles = makeStyles(() => ({
       flexDirection: "column",
       marginTop: "10px",
     },
-    [theme.breakpoints.down("md")]: {
-      display: "flex",
-      flexDirection: "column",
-    },
   },
 
   greeting: {
@@ -45,22 +42,6 @@ const useStyles = makeStyles(() => ({
     [theme.breakpoints.down("xs")]: {
       fontSize: "22pt",
       marginBottom: "20px",
-    },
-  },
-
-  button: {
-    alignSelf: "center",
-    fontSize: "14pt",
-    fontWeight: "bold",
-    lineHeight: "20px",
-    padding: "20px 65px",
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    marginTop: "30px",
-    [theme.breakpoints.down("xs")]: {
-      fontSize: "12pt",
-      padding: "15px 45px",
-      marginTop: "20px",
     },
   },
 }));
@@ -97,9 +78,7 @@ const Login = (props) => {
 
           <AuthInput label="Password" name="password" type="password" />
 
-          <Button className={classes.button} type="submit" size="large">
-            Login
-          </Button>
+          <AuthButton text="Login"/>
         </form>
       </Grid>
     </AuthSideLayout>

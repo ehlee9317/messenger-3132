@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Grid, Typography, Button } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { register } from "./store/utils/thunkCreators";
 import { theme } from "./themes/theme";
 import AuthSideLayout from "./components/AuthPage/AuthSideLayout";
 import AuthInput from "./components/AuthPage/AuthInput";
 import AuthHeader from "./components/AuthPage/AuthHeader";
+import AuthButton from "./components/AuthPage/AuthButton";
 
 const useStyles = makeStyles(() => ({
   formContainer: {
@@ -40,22 +41,6 @@ const useStyles = makeStyles(() => ({
     [theme.breakpoints.down("xs")]: {
       fontSize: "20pt",
       marginBottom: "20px",
-    },
-  },
-
-  button: {
-    alignSelf: "center",
-    fontSize: "14pt",
-    fontWeight: "bold",
-    lineHeight: "20px",
-    padding: "20px 65px",
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    marginTop: "30px",
-    [theme.breakpoints.down("xs")]: {
-      fontSize: "12pt",
-      padding: "15px 45px",
-      marginTop: "20px",
     },
   },
 }));
@@ -109,9 +94,7 @@ const Signup = (props) => {
             inputProps={{ minLength: 6 }}
           />
 
-          <Button className={classes.button} type="submit" size="large">
-            Create
-          </Button>
+          <AuthButton text="Create"/>
         </form>
       </Grid>
     </AuthSideLayout>
