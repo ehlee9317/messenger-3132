@@ -5,6 +5,7 @@ import {
   addConversation,
   setNewMessage,
   setSearchedUsers,
+  setUnreadMessages,
 } from "../conversations";
 import { gotUser, setFetchingStatus } from "../user";
 
@@ -75,7 +76,7 @@ export const fetchConversations = () => async (dispatch) => {
 
     data.forEach((conversation) => {
       conversation.messages.reverse();
-    })
+    });
 
     dispatch(gotConversations(data));
   } catch (error) {
@@ -120,5 +121,18 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
     dispatch(setSearchedUsers(data));
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const updateReadStatus = (conv) => async (dispatch) => {
+  try {
+    await axios.put("/api/messages/read-status", {
+      convId: conv.id,
+      otherUserId: conv.otherUser.id,
+    });
+
+    dispatch(setUnreadMessages(conv.id));
+  } catch (err) {
+    console.error(err);
   }
 };
