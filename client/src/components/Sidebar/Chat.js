@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { setActiveChat } from "../../store/activeConversation";
 import { connect } from "react-redux";
 
+import { updateReadStatus } from "../../store/utils/thunkCreators";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 8,
@@ -14,17 +16,21 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     "&:hover": {
-      cursor: "grab"
-    }
-  }
+      cursor: "grab",
+    },
+  },
 }));
 
 const Chat = (props) => {
   const classes = useStyles();
-  const { conversation } = props;
+  const { conversation, updateReadStatus } = props;
   const { otherUser } = conversation;
 
   const handleClick = async (conversation) => {
+    if (conversation?.id) {
+      await updateReadStatus(conversation);
+    }
+
     await props.setActiveChat(conversation.otherUser.username);
   };
 
@@ -41,12 +47,22 @@ const Chat = (props) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    conversations: state.conversations,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
-    }
+    },
+
+    updateReadStatus: (conversation) => {
+      dispatch(updateReadStatus(conversation));
+    },
   };
 };
 
-export default connect(null, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

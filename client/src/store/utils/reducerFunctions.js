@@ -13,12 +13,55 @@ export const addMessageToStore = (state, payload) => {
 
   return state.map((convo) => {
     if (convo.id === message.conversationId) {
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      const convoCopy = { ...convo };
+      const { messages, otherUser, user1, user2 } = convoCopy;
+
+      messages.push(message);
+      convoCopy.latestMessageText = message.text;
+
+      if (messages[messages.length - 1].senderId === otherUser.id) {
+        if (!user1 || !user2) {
+          convoCopy.unreadMessages++;
+        }
+      }
+      return convoCopy;
     } else {
       return convo;
     }
+  });
+};
+
+export const addMessageStatusToStore = (state, payload) => {
+  const { convId } = payload;
+
+  return state.map((convo) => {
+    if (convo.id === convId) {
+      const convoCopy = { ...convo };
+
+      convoCopy.messages.forEach((message) => {
+        if (message.senderId !== convoCopy.otherUser.id) {
+          message.read = true;
+        }
+      });
+
+      return convoCopy;
+    } else {
+      return convo;
+    }
+  });
+};
+
+export const addUnreadMessagesToStore = (state, payload) => {
+  const { convId } = payload;
+
+  return state.map((convo) => {
+    if (convo.id === convId) {
+      return {
+        ...convo,
+        unreadMessages: 0,
+      };
+    }
+    return convo;
   });
 };
 
@@ -69,10 +112,11 @@ export const addSearchedUsersToStore = (state, users) => {
 export const addNewConvoToStore = (state, recipientId, message) => {
   return state.map((convo) => {
     if (convo.otherUser.id === recipientId) {
-      convo.id = message.conversationId;
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      const convoCopy = { ...convo };
+      convoCopy.id = message.conversationId;
+      convoCopy.messages = [...convo.messages, message];
+      convoCopy.latestMessageText = message.text;
+      return convoCopy;
     } else {
       return convo;
     }
