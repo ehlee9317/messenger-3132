@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import bannerImage from "../../assets/bg-img.png";
-import bubbleVector from "../../assets/bubble.svg";
+import messageBubble from "../../assets/bubble.svg";
 import { theme } from "../../themes/theme";
 
 const useStyles = makeStyles(() => ({
@@ -69,7 +69,7 @@ const AuthSideLayout = ({ children }) => {
         item
         xs={5}
       >
-        <img className={classes.icon} src={bubbleVector} alt="" />
+        <img className={classes.icon} src={messageBubble} alt="" />
         <Box className={classes.bannerText}>
           Converse with anyone <br /> with any language
         </Box>
