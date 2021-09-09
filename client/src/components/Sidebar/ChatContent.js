@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     letterSpacing: -0.17,
   },
-
   unreadStyles: {
     display: "flex",
     justifyContent: "center",

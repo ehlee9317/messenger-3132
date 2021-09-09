@@ -50,7 +50,7 @@ const Messages = (props) => {
                 alt={otherUser.username}
                 src={otherUser.photoUrl}
                 className={classes.avatar}
-              ></Avatar>
+              />
             )}
           </Box>
         ) : (

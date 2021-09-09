@@ -76,11 +76,6 @@ export const fetchConversations = () => async (dispatch) => {
 
     data.forEach((conversation) => {
       conversation.messages.reverse();
-      if(conversation.otherUser && (conversation.user1 || conversation.user2)) {
-        conversation.messages.forEach((message) => {
-          message.read = true;
-        })
-      }
     });
 
     dispatch(gotConversations(data));
@@ -131,7 +126,7 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
 
 export const updateReadStatus = (conv) => async (dispatch) => {
   try {
-    await axios.put("/api/messages", {
+    await axios.put("/api/messages/read-status", {
       convId: conv.id,
       otherUserId: conv.otherUser.id,
     });

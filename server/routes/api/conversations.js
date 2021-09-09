@@ -73,7 +73,7 @@ router.get("/", async (req, res, next) => {
         if (message.senderId !== userId && !message.read) unreadMessages++;
       });
 
-      if (unreadMessages === undefined || unreadMessages === 0) {
+      if ( unreadMessages === 0) {
         unreadMessages = 0;
       }
 
