@@ -15,6 +15,10 @@ const Message = db.define("message", {
     allowNull: false,
     defaultValue: false,
   },
+  conversationId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  }
 });
 
 module.exports = Message;
