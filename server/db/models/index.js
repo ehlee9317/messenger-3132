@@ -5,12 +5,6 @@ const UserToConvo = require("./userToConvo");
 
 // associations
 
-User.hasMany(UserToConvo);
-UserToConvo.belongsTo(User);
-
-Conversation.hasMany(UserToConvo);
-UserToConvo.belongsTo(Conversation);
-
 Conversation.belongsToMany(User, { through: "UserToConvo" });
 User.belongsToMany(Conversation, { through: "UserToConvo" });
 
